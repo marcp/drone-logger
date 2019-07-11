@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.filedemo.exception.MyFileNotFoundException;
 import com.example.filedemo.payload.UploadFileResponse;
 import com.example.filedemo.service.FileStorageService;
 
