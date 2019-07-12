@@ -1,6 +1,5 @@
 package com.example.filedemo.payload;
 
-
 public class UploadFileResponse {
     private String fileIdentifier;
     private String fileDownloadUri;
