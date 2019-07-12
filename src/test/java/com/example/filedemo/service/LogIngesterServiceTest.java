@@ -26,7 +26,7 @@ public class LogIngesterServiceTest {
 		LogIngesterService logIngester = new LogIngesterService();
 		logIngester.withFileName("/Users/marc/play/skyward/logfile.txt").ingest();
 
-		BatteryConsumption batteryConsumption = new BatteryConsumption(15977, 15977);
+		BatteryConsumption batteryConsumption = new BatteryConsumption(5988, 5988, 5988);
 
 		assertEquals(batteryConsumption, logIngester.getBatteryConsumption());
 	}

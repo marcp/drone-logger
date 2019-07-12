@@ -50,8 +50,9 @@ public class LogIngesterService {
             throw new FileNotFoundException("No fileName was supplied");
         }
 
-        long startingVoltage;
-        long endingVoltage;
+        long fullChargeVolume;
+        long startingVolume;
+        long endingVolume;
 
         final ObjectMapper mapper = new ObjectMapper();
         File file = new File(fileName);
@@ -62,24 +63,27 @@ public class LogIngesterService {
 
         try {
             JsonNode root = mapper.readTree(file);
-            JsonNode flightLoggingNode = root.get("message").get("flight_logging");
+            JsonNode messageNode = root.get("message");
+            JsonNode batteryNode = messageNode.get("flight_data").get("battery");
+            JsonNode flightLoggingNode = messageNode.get("flight_logging");
             JsonNode flightLoggingItemsNode = flightLoggingNode.get("flight_logging_items");
             JsonNode flightLoggingKeysNode = flightLoggingNode.get("flight_logging_keys");
             List<String> keys = mapper.convertValue(flightLoggingKeysNode, List.class);
-            int batteryVoltageIndex = keys.indexOf("battery_voltage");
+            int batteryPowerIndex = keys.indexOf("battery_power");
             int numItems = flightLoggingItemsNode.size();
 
             JsonNode firstItem = flightLoggingItemsNode.get(0);
             JsonNode lastItem = flightLoggingItemsNode.get(numItems - 1);
 
-            startingVoltage = firstItem.get(batteryVoltageIndex).asLong();
-            endingVoltage = lastItem.get(batteryVoltageIndex).asLong();
+            startingVolume = firstItem.get(batteryPowerIndex).asLong();
+            endingVolume = lastItem.get(batteryPowerIndex).asLong();
+            fullChargeVolume = batteryNode.get("full_charge_volume").asLong();
         } catch (IOException e) {
             e.printStackTrace();
             throw new InvalidFileException("Error parsing JSON file");
         }
 
-        this.batteryConsumption = new BatteryConsumption(startingVoltage, endingVoltage);
+        this.batteryConsumption = new BatteryConsumption(fullChargeVolume, startingVolume, endingVolume);
         return this;
     }
 

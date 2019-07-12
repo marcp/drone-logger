@@ -4,22 +4,27 @@ import java.util.Objects;
 
 public class BatteryConsumption {
 
-    private long startingVoltage;
-    private long endingVoltage;
+    private long fullChargeVolume;
+    private long startingVolume;
+    private long endingVolume;
     
-    public BatteryConsumption(long startingVoltage, long endingVoltage) {
-        this.startingVoltage = startingVoltage;
-        this.endingVoltage = endingVoltage;
+    public BatteryConsumption(long fullChargeVolume, long startingVolume, long endingVolume) {
+        this.startingVolume = startingVolume;
+        this.endingVolume = endingVolume;
     }
-    
-    public long getEndingVoltage() {
-        return endingVoltage;
+
+    public long getFullChargeVolume() {
+        return this.fullChargeVolume;
     }
-    
-    public long getStartingVoltage() {
-        return startingVoltage;
+
+    public long getStartingVolume() {
+        return this.startingVolume;
     }
-    
+
+    public long getEndingVolume() {
+        return this.endingVolume;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -28,12 +33,12 @@ public class BatteryConsumption {
             return false;
         }
         BatteryConsumption batteryConsumption = (BatteryConsumption) o;
-        return startingVoltage == batteryConsumption.startingVoltage
-                && endingVoltage == batteryConsumption.endingVoltage;
+        return fullChargeVolume == batteryConsumption.fullChargeVolume && startingVolume == batteryConsumption.startingVolume && endingVolume == batteryConsumption.endingVolume;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startingVoltage, endingVoltage);
+        return Objects.hash(fullChargeVolume, startingVolume, endingVolume);
     }
+
 }
