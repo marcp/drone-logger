@@ -19,20 +19,14 @@ public class BatteryConsumption {
     }
 
     private void computePercentages() {
-        this.startingVolumePercentage = this.startingVolume * 100 / this.fullChargeVolume;
-        this.endingVolumePercentage = this.endingVolume * 100 / this.fullChargeVolume;
-    }
-
-    public long getFullChargeVolume() {
-        return this.fullChargeVolume;
-    }
-
-    public long getStartingVolume() {
-        return this.startingVolume;
-    }
-
-    public long getEndingVolume() {
-        return this.endingVolume;
+        if (this.fullChargeVolume > 0) {
+            this.startingVolumePercentage = this.startingVolume * 100 / this.fullChargeVolume;
+            this.endingVolumePercentage = this.endingVolume * 100 / this.fullChargeVolume;
+        } else {
+            // TODO: Needs tests. Consider throwing exception.
+            this.startingVolumePercentage = 0;
+            this.endingVolumePercentage = 0;
+        }
     }
 
     public long getStartingVolumePercentage() {
