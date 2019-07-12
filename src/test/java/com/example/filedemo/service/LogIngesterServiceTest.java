@@ -7,23 +7,23 @@ import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertEquals;
 
-public class LogIngesterTest {
+public class LogIngesterServiceTest {
 
 	@Test(expected=FileNotFoundException.class)
 	public void ingest_nullFile() throws Exception {
-		LogIngester logIngester = new LogIngester();
+		LogIngesterService logIngester = new LogIngesterService();
 		logIngester.ingest();
 	}
 
 	@Test(expected=FileNotFoundException.class)
 	public void ingest_missingFile() throws Exception {
-		LogIngester logIngester = new LogIngester();
+		LogIngesterService logIngester = new LogIngesterService();
 		logIngester.withFileName("barney.log").ingest();
 	}
 
 	@Test
 	public void ingest_smallFile() throws Exception {
-		LogIngester logIngester = new LogIngester();
+		LogIngesterService logIngester = new LogIngesterService();
 		logIngester.withFileName("/Users/marc/play/skyward/logfile.txt").ingest();
 
 		BatteryConsumption batteryConsumption = new BatteryConsumption(15977, 15977);

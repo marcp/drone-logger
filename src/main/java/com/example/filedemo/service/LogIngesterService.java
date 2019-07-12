@@ -2,32 +2,50 @@ package com.example.filedemo.service;
 
 import com.example.filedemo.exception.InvalidFileException;
 import com.example.filedemo.payload.BatteryConsumption;
+import com.example.filedemo.property.FileStorageProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
-public class LogIngester {
+@Service
+public class LogIngesterService {
 
     private String fileName;
     private BatteryConsumption batteryConsumption;
+    private FileStorageProperties fileStorageProperties;
 
-    public LogIngester() {
+    public LogIngesterService() {
     }
 
-    public LogIngester withFileName(String fileName) {
+    public LogIngesterService(FileStorageProperties fileStorageProperties) {
+        this.fileStorageProperties = fileStorageProperties;
+    }
+
+    public LogIngesterService withFileName(String fileName) {
         this.fileName = fileName;
         return this;
     }
 
+    // TODO: Move the file identifier to full file name into a separate service.
+	public LogIngesterService withFileIdentifier(String fileIdentifier) {
+        Path fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath().normalize();
+        this.fileName = fileStorageLocation + "/" + fileIdentifier;
+		return this;
+    }
+    
     public BatteryConsumption getBatteryConsumption() {
         return batteryConsumption;
     }
 
-    public LogIngester ingest() throws FileNotFoundException {
+    public LogIngesterService ingest() throws FileNotFoundException {
         if (fileName == null) {
             throw new FileNotFoundException("No fileName was supplied");
         }
@@ -64,4 +82,5 @@ public class LogIngester {
         this.batteryConsumption = new BatteryConsumption(startingVoltage, endingVoltage);
         return this;
     }
+
 }
