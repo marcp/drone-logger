@@ -23,7 +23,6 @@ public class BatteryConsumption {
             this.startingVolumePercentage = this.startingVolume * 100 / this.fullChargeVolume;
             this.endingVolumePercentage = this.endingVolume * 100 / this.fullChargeVolume;
         } else {
-            // TODO: Needs tests.
             this.startingVolumePercentage = 0;
             this.endingVolumePercentage = 0;
         }
