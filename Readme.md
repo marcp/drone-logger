@@ -1,5 +1,15 @@
-## Spring Boot File Upload / Download Rest API Example
+# drone-logger (marc.poris@gmail.com)
 
+**Note**: I started with the Spring Boot File Upload / Download Rest API Example
+
+
+**TODO**:
+
+1. More test coverage (this should have been done first)
+2. Optimize for 10MB log file (try using Jackson Streaming API)
+
+
+From here on down is from the README of the Spring Boot File Upload / Download Rest API Example
 **Tutorial**: [Uploading an Downloading files with Spring Boot](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/)
 
 ## Steps to Setup
