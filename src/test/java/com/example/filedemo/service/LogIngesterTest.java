@@ -1,9 +1,7 @@
 package com.example.filedemo.service;
 
 import com.example.filedemo.payload.BatteryConsumption;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.io.FileNotFoundException;
 
